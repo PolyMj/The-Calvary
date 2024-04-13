@@ -119,6 +119,35 @@ void pickup(game &gameState){
 
 void goPos(game &gameState, int destx, int desty){
 	string inputline = "";
+	int x = 0;
+	int y = 0;
+	x = destx - gameState.xpos;
+	y = desty - gameState.ypos;
+	if (y<0){
+		y=abs(y);
+		for (int j =0; j < y;j ++){
+			up(gameState);
+		}
+
+	}
+	else if (y>0){
+		for (int j =0; j < y;j ++){
+			down(gameState);
+		}
+	}
+	if (x<0){
+		x=abs(x);
+		for (int i = 0; i < x; i ++){
+			left(gameState);
+		}
+
+	}
+	else if (x>0){
+		for (int i = 0; i < x; i ++){
+			right(gameState);
+		}
+
+	}
 	while (gameState.xpos != destx){
 		while(gameState.ypos != desty){
 			//if need to go down
