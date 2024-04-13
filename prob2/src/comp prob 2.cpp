@@ -123,6 +123,9 @@ void drop(game &gameState){
 	}
 }
 
+void centralPile (){
+	
+}
 
 int main() {
 	int yardsize,totalAcorns,initialPiles;
