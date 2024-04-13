@@ -221,12 +221,28 @@ int main() {
 		//go to found pile
 
 		//pickup
-
+		pickup(gameState);
 		//find nearest center pile part
 		nearestPos = findNearst(gameState,centerMask,true);
+		int dx =  nearestPos.x-gameState.xpos;
+		int dy = nearestPos.y-gameState.ypos;
+		if(abs(dx) < abs(dy)){
+			if(dx>0){
+				nearestPos.x++;
+			}else{
+				nearestPos.x--;
+			}
+		}else{
+			if(dy>0){
+				nearestPos.y++;
+			}else{
+				nearestPos.y--;
+			}
+		}
 		//go 1 tile away from the center part
 
 		//drop
+		drop(gameState);
 	}
 
 
