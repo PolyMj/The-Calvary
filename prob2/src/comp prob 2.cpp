@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include <cstdbool>
+#include <cmath>
 using namespace std;
 
 typedef struct game{
@@ -10,6 +11,11 @@ typedef struct game{
 	int yardSize;
 	bool holding;
 } game;
+
+typedef struct postion{
+	int x;
+	int y;
+}position;
 
 double calculateScore(int yardSize,int acornCount, int pileCount,int opperationCount){
 	int numerator = 2 * acornCount * yardSize * yardSize* yardSize;
@@ -167,6 +173,50 @@ void generateCneterPileMask(game gameState,char outputmask[]){
 
 }
 
+position findNearst(game gameState,char yard[],bool centerPile){
+	position result;
+	double distances[gameState.yardSize][gameState.yardSize];
+	//calculate the distance of every possible correct tile from the squirl
+	for(int i=0;i<gameState.yardSize;i++){
+		for(int j=0;j<gameState.yardSize;j++){
+			double dist;
+			if(centerPile){
+				//if the tile has what we are looking for on it
+				if(yard[i*gameState.yardSize+j]=='x'){
+					//calculate its distance
+					dist = sqrt(pow(gameState.xpos-i,2)+pow(gameState.ypos-j,2));
+				}else{
+					//else set the distace to large number
+					dist = 666666;
+				}
+			}else{
+				//if the tile has what we are looking for on it
+				if(yard[i*gameState.yardSize+j]>='1' && yard[i*gameState.yardSize+j]<='9'){
+					//calculate its distance
+					dist = sqrt(pow(gameState.xpos-i,2)+pow(gameState.ypos-j,2));
+				}else{
+					//else set the distace to large number
+					dist = 666666;
+				}
+			}
+			distances[i][j] = dist;
+		}
+	}
+
+	double lowst=666666;
+	for(int i=0;i<gameState.yardSize;i++){
+		for(int j=0;j<gameState.yardSize;j++){
+			if(distances[i][j] < lowst){
+				result.x=i;
+				result.y=j;
+				lowst=distances[i][j];
+			}
+		}
+	}
+
+	return result;
+}
+
 
 int main() {
 	int yardsize,totalAcorns,initialPiles;
@@ -187,6 +237,28 @@ int main() {
 			}
 		}
 	}
+
+	//action loop
+	//while there are mre then 1 pile
+	while(countPiles(yardsize,yard[0])>1){
+		position nearestPos;
+		//generate center mask
+		char centerMask[yardsize*yardsize];
+		generateCneterPileMask(gameState,centerMask);
+
+		//find nerst non center pile
+		nearestPos = findNearst(gameState,centerMask,false);
+		//go to found pile
+
+		//pickup
+
+		//find nearest center pile part
+		nearestPos = findNearst(gameState,centerMask,true);
+		//go 1 tile away from the center part
+
+		//drop
+	}
+
 
 	cout << calculateScore(yardsize,totalAcorns,initialPiles,0) << endl << countPiles(yardsize,yard[0])<<endl;
 
