@@ -248,28 +248,29 @@ int main() {
 	cout << "readdy"<<endl;
 	//action loop
 	//while there are mre then 1 pile
-	while(countPiles(yardsize,yard[0])>1){
-		cout << "start";
-		cout.flush();
+	int pc;
+	while((pc=countPiles(yardsize,yard[0]))>1){
+		cout << "start "<<pc<<" piles"<<endl;
+
 		position nearestPos;
 		//generate center mask
 		char centerMask[yardsize*yardsize];
 		generateCneterPileMask(gameState,centerMask);
-		cout << "generated";
-		cout.flush();
+		cout << "generated"<<endl;
+
 		//find nerst non center pile
 		nearestPos = findNearst(gameState,centerMask,false);
-		cout << 3 << endl << nearestPos.x << " "<<nearestPos.y<<endl;;
-		cout.flush();
+		cout << "nearst pile pos" << endl << nearestPos.x << " "<<nearestPos.y<<endl;;
+
 		//go to found pile
 		goPos(gameState,nearestPos.x,nearestPos.y);
-		cout << 4;
-				cout.flush();
+		cout <<endl<< "moved"<<endl;
+
 
 		//pickup
 		pickup(gameState);
-		cout << 5;
-				cout.flush();
+		cout <<endl<< "picked up"<<endl;
+
 		//find nearest center pile part
 		nearestPos = findNearst(gameState,centerMask,true);
 		int dx =  nearestPos.x-gameState.xpos;
@@ -287,18 +288,18 @@ int main() {
 				nearestPos.y--;
 			}
 		}
-		cout << 6 << endl << nearestPos.x << " "<<nearestPos.y<<endl;
-				cout.flush();
+		cout << "center pile" << endl << nearestPos.x << " "<<nearestPos.y<<endl;
+
 		//go 1 tile away from the center part
 
 		goPos(gameState,nearestPos.x,nearestPos.y);
-		cout << 7;
-				cout.flush();
+		cout << endl<<"moved"<<endl;
+
 
 		//drop
 		drop(gameState);
-		cout << 8;
-				cout.flush();
+		cout <<endl<< "dropped"<<endl;
+
 	}
 
 
