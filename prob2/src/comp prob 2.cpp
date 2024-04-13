@@ -16,6 +16,7 @@ void discoverPile(char yard[],int size,int i,int j){
 	if(i-1 >0 && yard[(i-1)*size+j] >= '1' && yard[(i-1)*size+j] <= '9'){
 		discoverPile(yard,size,i-1,j);
 	}
+	
 	//check the space to the left
 	if(j-1 >0 && yard[i*size+j-1] >= '1' && yard[(i-1)*size+j] <= '9'){
 		discoverPile(yard,size,i,j-1);
