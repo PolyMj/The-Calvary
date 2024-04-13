@@ -174,9 +174,12 @@ position findNearst(game gameState,char yard[],bool centerPile){
 	}
 
 	double lowst=666666;
+	//go through every tile
 	for(int i=0;i<gameState.yardSize;i++){
 		for(int j=0;j<gameState.yardSize;j++){
+			//if the current tile is less distance the the last lowest one
 			if(distances[i][j] < lowst){
+				//then set the loest dist to this tile
 				result.x=i;
 				result.y=j;
 				lowst=distances[i][j];
@@ -246,7 +249,14 @@ int main() {
 	}
 
 
-	cout << calculateScore(yardsize,totalAcorns,initialPiles,0) << endl << countPiles(yardsize,yard[0])<<endl;
+	cout << calculateScore(yardsize,totalAcorns,initialPiles,0) << endl << countPiles(yardsize,yard[0])<<endl<<endl;
+
+	for(int i=0;i<yardsize;i++){
+		for(int j=0;j<yardsize;j++){
+			cout <<yard[i][j];
+		}
+		cout << endl;
+	}
 
 
 	return 0;
