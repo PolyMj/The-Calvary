@@ -13,20 +13,20 @@ void discoverPile(char yard[],int size,int i,int j){
 	//set the current space to not pile
 	yard[i*size+j] = '.';
 	//check to space above
-	if(i-1 >0 && yard[(i-1)*size+j] >= '1' && yard[(i-1)*size+j] <= '9'){
+	if(i-1 >=0 && yard[(i-1)*size+j] >= '1' && yard[(i-1)*size+j] <= '9'){
 		discoverPile(yard,size,i-1,j);
 	}
 	
 	//check the space to the left
-	if(j-1 >0 && yard[i*size+j-1] >= '1' && yard[(i-1)*size+j] <= '9'){
+	if(j-1 >=0 && yard[i*size+j-1] >= '1' && yard[i*size+j-1] <= '9'){
 		discoverPile(yard,size,i,j-1);
 	}
 	//check the space to the right
-	if(i+1 <size && yard[(i+1)*size+j] >= '1' && yard[(i-1)*size+j] <= '9'){
+	if(i+1 <size && yard[(i+1)*size+j] >= '1' && yard[(i+1)*size+j] <= '9'){
 		discoverPile(yard,size,i+1,j);
 	}
 	//check the space down
-	if(j+1 <size && yard[i*size+j+1] >= '1' && yard[(i-1)*size+j] <= '9'){
+	if(j+1 <size && yard[i*size+j+1] >= '1' && yard[(i)*size+j+1] <= '9'){
 		discoverPile(yard,size,i,j+1);
 	}
 
@@ -38,7 +38,7 @@ int countPiles(int yardSize, char yard[]){
 	for(int i=0;i<yardSize;i++){
 		for(int j=0;j<yardSize;j++){
 			yardCopy[i][j] = yard[i*yardSize+j];
-			discoverPile(yardCopy[0],yardSize,i,j);
+
 		}
 	}
 	int piles =0;
@@ -48,6 +48,7 @@ int countPiles(int yardSize, char yard[]){
 			//if the current selection is a pile
 			if(yardCopy[i][j]>='1' && yardCopy[i][j]<='9'){
 				piles++;
+				discoverPile(yardCopy[0],yardSize,i,j);
 			}
 		}
 	}
@@ -74,6 +75,8 @@ int main() {
 		}
 	}
 
-	cout << calculateScore(yardsize,totalAcorns,initialPiles,0) << " " << countPiles(yardsize,yard[0])<<endl;
+	cout << calculateScore(yardsize,totalAcorns,initialPiles,0) << endl << countPiles(yardsize,yard[0])<<endl;
+
+
 	return 0;
 }
