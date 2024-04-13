@@ -56,6 +56,23 @@ int countPiles(int yardSize, char yard[]){
 
 
 int main() {
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
+	int yardsize,totalAcorns,initialPiles;
+	//get the inital data
+	cin >> yardsize >> totalAcorns >> initialPiles;
+	char yard[yardsize][yardsize];
+	int xpos,ypos;
+
+	//read in the initial yard;
+	for(int i=0;i<yardsize;i++){
+		for(int j=0;j<yardsize;j++){
+			cin >> yard[i][j];
+			if(yard[i][j]=='@'){
+				xpos=i;
+				ypos=j;
+			}
+		}
+	}
+
+	cout << calculateScore(yardsize,totalAcorns,initialPiles,0) << " " << countPiles(yardsize,yard[0])<<endl;
 	return 0;
 }
