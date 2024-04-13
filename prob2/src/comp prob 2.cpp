@@ -31,6 +31,7 @@ void discoverPile(char yard[],int size,int i,int j,char filler){
 	if(i-1 >=0 && yard[(i-1)*size+j] >= '1' && yard[(i-1)*size+j] <= '9'){
 		discoverPile(yard,size,i-1,j,filler);
 	}
+	
 	//check the space to the left
 	if(j-1 >=0 && yard[i*size+j-1] >= '1' && yard[i*size+j-1] <= '9'){
 		discoverPile(yard,size,i,j-1,filler);
@@ -113,6 +114,35 @@ void pickup(game &gameState){
 			gameState.holding=true;
 		}
 	}
+}
+
+void goPos(game &gameState, int destx, int desty){
+	string inputline = "";
+	while (gameState.xpos != destx){
+		while(gameState.ypos != desty){
+			//if need to go down
+			if (gameState.ypos < desty){	
+				down(gameState);
+
+			}
+			//if need to go up
+			else if(gameState.ypos > desty){
+				
+				up(gameState);
+			}
+
+			//if need to go right
+			if (gameState.xpos < destx){
+				right(gameState);
+
+			}
+			//if need to go left
+			else if(gameState.xpos > destx){
+				left(gameState);
+			}
+		}
+	}
+	
 }
 
 void drop(game &gameState){
