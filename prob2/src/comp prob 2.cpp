@@ -110,6 +110,35 @@ void pickup(game &gameState){
 	}
 }
 
+void goPos(game &gameState, int destx, int desty){
+	string inputline = "";
+	while (gameState.xpos != destx){
+		while(gameState.ypos != desty){
+			//if need to go down
+			if (gameState.ypos < desty){	
+				down(gameState);
+
+			}
+			//if need to go up
+			else if(gameState.ypos > desty){
+				
+				up(gameState);
+			}
+
+			//if need to go right
+			if (gameState.xpos < destx){
+				right(gameState);
+
+			}
+			//if need to go left
+			else if(gameState.xpos > destx){
+				left(gameState);
+			}
+		}
+	}
+	
+}
+
 void drop(game &gameState){
 	if(gameState.holding){
 		int i = gameState.xpos,j=gameState.ypos,size = gameState.yardSize;
@@ -123,11 +152,6 @@ void drop(game &gameState){
 	}
 }
 
-<<<<<<< HEAD
-void centralPile (){
-	
-}
-=======
 void generateCneterPileMask(game gameState,char outputmask[]){
 	//copy the yard
 	for(int i=0;i<gameState.yardSize;i++){
@@ -143,7 +167,6 @@ void generateCneterPileMask(game gameState,char outputmask[]){
 
 }
 
->>>>>>> e64c729b75bce7dfc22af5f17ed90fa7cc1b0dc5
 
 int main() {
 	int yardsize,totalAcorns,initialPiles;
