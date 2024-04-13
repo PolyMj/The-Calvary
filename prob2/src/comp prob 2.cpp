@@ -11,6 +11,11 @@ typedef struct game{
 	bool holding;
 } game;
 
+typedef struct postion{
+	int x;
+	int y;
+}position;
+
 double calculateScore(int yardSize,int acornCount, int pileCount,int opperationCount){
 	int numerator = 2 * acornCount * yardSize * yardSize* yardSize;
 	int denominator = 3 * pileCount;
@@ -157,6 +162,27 @@ int main() {
 			}
 		}
 	}
+
+	//action loop
+	//while there are mre then 1 pile
+	while(countPiles(yardsize,yard[0])>1){
+		//generate center mask
+		char centerMask[yardsize*yardsize];
+		generateCneterPileMask(gameState,centerMask);
+
+		//find nerst non center pile
+
+		//go to found pile
+
+		//pickup
+
+		//find nearest center pile part
+
+		//go 1 tile away from the center part
+
+		//drop
+	}
+
 
 	cout << calculateScore(yardsize,totalAcorns,initialPiles,0) << endl << countPiles(yardsize,yard[0])<<endl;
 
