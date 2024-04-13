@@ -1,6 +1,15 @@
 
 #include <iostream>
+#include <cstdbool>
 using namespace std;
+
+typedef struct game{
+	int xpos;
+	int ypos;
+	char* yard;
+	int yardSize;
+	bool holding;
+} game;
 
 double calculateScore(int yardSize,int acornCount, int pileCount,int opperationCount){
 	int numerator = 2 * acornCount * yardSize * yardSize* yardSize;
@@ -55,21 +64,53 @@ int countPiles(int yardSize, char yard[]){
 	return piles;
 }
 
+void up(game &gameState){
+	cout << 'N';
+	gameState.ypos--;
+}
+
+void down(game gameState){
+	cout << 'S';
+	gameState.ypos++;
+}
+
+void left(game gameState){
+	cout << 'W';
+	gameState.xpos--;
+}
+
+void right(game gameState){
+	cout << 'E';
+	gameState.xpos++;
+}
+
+void pickup(game gameState){
+	cout << 'P';
+	gameState.holding=true;
+}
+
+void drop(game gameState){
+	cout << 'D';
+	gameState.holding=false;
+}
+
 
 int main() {
 	int yardsize,totalAcorns,initialPiles;
 	//get the inital data
 	cin >> yardsize >> totalAcorns >> initialPiles;
 	char yard[yardsize][yardsize];
-	int xpos,ypos;
-
+	game gameState;
+	gameState.yard = yard[0];
+	gameState.holding=false;
+	gameState.yardSize=yardsize;
 	//read in the initial yard;
 	for(int i=0;i<yardsize;i++){
 		for(int j=0;j<yardsize;j++){
 			cin >> yard[i][j];
 			if(yard[i][j]=='@'){
-				xpos=i;
-				ypos=j;
+				gameState.xpos=i;
+				gameState.xpos=j;
 			}
 		}
 	}
