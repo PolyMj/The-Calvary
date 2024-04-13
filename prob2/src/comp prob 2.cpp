@@ -102,6 +102,7 @@ void right(game &gameState){
 void pickup(game &gameState){
 	if(!gameState.holding){
 		int i = gameState.xpos,j=gameState.ypos,size = gameState.yardSize;
+		cout.flush();
 		if(gameState.yard[i*size+j] >='1' && gameState.yard[i*size+j] <='9'){
 			cout << 'P';
 			int tileCount = gameState.yard[i*size+j]-'0';
@@ -175,6 +176,9 @@ void generateCneterPileMask(game gameState,char outputmask[]){
 
 position findNearst(game gameState,char yard[],bool centerPile){
 	position result;
+	result.x=gameState.yardSize/2;
+	result.y=gameState.yardSize/2;
+
 	double distances[gameState.yardSize][gameState.yardSize];
 	//calculate the distance of every possible correct tile from the squirl
 	for(int i=0;i<gameState.yardSize;i++){
@@ -222,6 +226,7 @@ position findNearst(game gameState,char yard[],bool centerPile){
 
 
 int main() {
+	cout << "readdy"<<endl;
 	int yardsize,totalAcorns,initialPiles;
 	//get the inital data
 	cin >> yardsize >> totalAcorns >> initialPiles;
@@ -236,25 +241,35 @@ int main() {
 			cin >> yard[i][j];
 			if(yard[i][j]=='@'){
 				gameState.xpos=i;
-				gameState.xpos=j;
+				gameState.ypos=j;
 			}
 		}
 	}
-
+	cout << "readdy"<<endl;
 	//action loop
 	//while there are mre then 1 pile
 	while(countPiles(yardsize,yard[0])>1){
+		cout << "start";
+		cout.flush();
 		position nearestPos;
 		//generate center mask
 		char centerMask[yardsize*yardsize];
 		generateCneterPileMask(gameState,centerMask);
-
+		cout << "generated";
+		cout.flush();
 		//find nerst non center pile
 		nearestPos = findNearst(gameState,centerMask,false);
+		cout << 3 << endl << nearestPos.x << " "<<nearestPos.y<<endl;;
+		cout.flush();
 		//go to found pile
+		goPos(gameState,nearestPos.x,nearestPos.y);
+		cout << 4;
+				cout.flush();
 
 		//pickup
 		pickup(gameState);
+		cout << 5;
+				cout.flush();
 		//find nearest center pile part
 		nearestPos = findNearst(gameState,centerMask,true);
 		int dx =  nearestPos.x-gameState.xpos;
@@ -272,10 +287,18 @@ int main() {
 				nearestPos.y--;
 			}
 		}
+		cout << 6 << endl << nearestPos.x << " "<<nearestPos.y<<endl;
+				cout.flush();
 		//go 1 tile away from the center part
+
+		goPos(gameState,nearestPos.x,nearestPos.y);
+		cout << 7;
+				cout.flush();
 
 		//drop
 		drop(gameState);
+		cout << 8;
+				cout.flush();
 	}
 
 
