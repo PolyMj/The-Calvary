@@ -66,33 +66,61 @@ int countPiles(int yardSize, char yard[]){
 }
 
 void up(game &gameState){
-	cout << 'N';
-	gameState.ypos--;
+	if(gameState.ypos>0){
+		cout << 'N';
+		gameState.ypos--;
+	}
 }
 
-void down(game gameState){
-	cout << 'S';
-	gameState.ypos++;
+void down(game &gameState){
+	if(gameState.ypos<gameState.yardSize-1){
+		cout << 'S';
+		gameState.ypos++;
+	}
 }
 
-void left(game gameState){
-	cout << 'W';
-	gameState.xpos--;
+void left(game &gameState){
+	if(gameState.xpos>0){
+		cout << 'W';
+		gameState.xpos--;
+	}
 }
 
-void right(game gameState){
-	cout << 'E';
-	gameState.xpos++;
+void right(game &gameState){
+	if(gameState.xpos<gameState.yardSize-1){
+		cout << 'E';
+		gameState.xpos++;
+	}
 }
 
-void pickup(game gameState){
-	cout << 'P';
-	gameState.holding=true;
+void pickup(game &gameState){
+	if(!gameState.holding){
+		int i = gameState.xpos,j=gameState.ypos,size = gameState.yardSize;
+		if(gameState.yard[i*size+j] >='1' && gameState.yard[i*size+j] <='9'){
+			cout << 'P';
+			int tileCount = gameState.yard[i*size+j]-'0';
+			tileCount--;
+			if(tileCount==0){
+				gameState.yard[i*size+j]='.';
+			}else{
+				gameState.yard[i*size+j]=(char) '0'+tileCount;
+			}
+			gameState.holding=true;
+		}
+	}
 }
 
-void drop(game gameState){
-	cout << 'D';
-	gameState.holding=false;
+void drop(game &gameState){
+	if(gameState.holding){
+		int i = gameState.xpos,j=gameState.ypos,size = gameState.yardSize;
+		if(gameState.yard[i*size+j] !='9'){
+			int tileCount = gameState.yard[i*size+j]-'0';
+			tileCount++;
+			cout << 'D';
+			gameState.yard[i*size+j]=(char) '0'+tileCount;
+			gameState.holding=false;
+		}
+	}
 }
 
 
